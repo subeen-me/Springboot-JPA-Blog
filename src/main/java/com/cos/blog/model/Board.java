@@ -28,8 +28,7 @@ public class Board {
     @Lob //대용량 데이터
     private String content; //섬머노트 라이브러리 <html>태그가 섞여서 디자인이 됨.
 
-    @ColumnDefault("0")
-    private int count; //조회수
+    private int count; //조회수. @ColumnDefault("0") 해서 default를 0으로 할 수도 있지만 여기서는 서비스에 대신 넣어준다 .
 
     /**
      * ManyToOne

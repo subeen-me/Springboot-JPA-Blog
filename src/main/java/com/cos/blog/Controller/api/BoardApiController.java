@@ -32,7 +32,11 @@ public class BoardApiController {
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board) {
+    public ResponseDto<Integer> updateById(@PathVariable int id, @RequestBody Board board) {
+        System.out.println("BoardApiController : update : id : "+id);
+        System.out.println("BoardApiController : update : board : "+board.getTitle());
+        System.out.println("BoardApiController : update : board : "+board.getContent());
+        System.out.println("updateController");
         boardService.update(id, board);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }

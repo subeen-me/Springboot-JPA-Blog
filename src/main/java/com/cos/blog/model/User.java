@@ -27,7 +27,7 @@ public class User {
     @Column(nullable = false, length = 30, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 100) // 123456 =>해쉬(비밀번호 암호화)
+    @Column(nullable = false, length = 100) // 123456 =>해쉬(비밀번호 암호화) //카카오 로그인 이용하면 앞으로 패스워드가 null이 될 수도 있다. nullable=false 지움
     private String password;
 
     @Column(nullable = false, length = 50)

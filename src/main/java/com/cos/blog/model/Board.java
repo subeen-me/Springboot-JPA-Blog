@@ -1,5 +1,6 @@
 package com.cos.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,8 +42,14 @@ public class Board {
     private User user; //DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다.
 
     // mappedBy 뒤에는 필드이름을 적는다.
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //mappedBy는 연관관계의 주인이 아니다. (FK가 아니므로 컬럼을 만들지 않는다)
-    public List<Reply> reply;
+    //mappedBy는 연관관계의 주인이 아니다. (FK가 아니므로 컬럼을 만들지 않는다)
+    //CascadeType.Persist 옵션을 넣으면 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화된다. board 오브젝트를 넣을 때 replys를 담아서 저장한다.
+    //CascadeType.Remove 옵션은 게시글(board)를 지울 때 댓글도 같이 지울 수 있게 한다. 엔티티를 삭제하면 연관된 엔티티도 삭제된다.
+    //CascadeType.All은 Persist와 Remove를 한꺼번에 다 넣은 옵션.
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"board","user"}) //무한참조방지
+    @OrderBy("id desc") //내림차순 정렬
+    public List<Reply> replys;
 
     @CreationTimestamp //데이터가 들어갈 때 자동으로 현재시간이 import 된다
     private Timestamp createDate;

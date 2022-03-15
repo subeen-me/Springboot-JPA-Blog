@@ -35,6 +35,11 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    @Transactional
+    public int updateCount(int id) {
+        return boardRepository.updateCount(id);
+    }
+
     @Transactional(readOnly = true)
     public Board viewContent(int id) {
         return boardRepository.findById(id)
